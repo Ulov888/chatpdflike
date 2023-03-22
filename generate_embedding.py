@@ -5,7 +5,6 @@ import os
 import logging as logger
 from flask_cors import CORS
 import os
-os.environ['OPENAI_API_KEY'] = "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"
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 class Chatbot():
