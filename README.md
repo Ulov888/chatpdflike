@@ -22,23 +22,17 @@
 基于以上的流程，只需要开发少量的适配代码，主要功能都是由openai的接口完成，
 
 ## 使用指南
-1 .配置系统环境变量OPENAI_API_KEY
-
+1. 配置系统环境变量OPENAI_API_KEY，Ps:密钥需要自己上openai官网申请
+```
+export OPENAI_API_KEY = "XXX"  
+```
 2. 运行
 ```
 python run.py 
 ```
-### Prerequisites 项目环境依赖
 
-
-```
-six~=1.16.0
-rasa~=3.1.0
-zlib~=1.2.12
-tqdm~=4.64.0
-```
-
-### 安装
+### 安装项目环境依赖
 ```
 pip install -r requirements.txt
 ```
+## 效果演示
