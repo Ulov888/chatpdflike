@@ -1,12 +1,12 @@
 html {
     height: 100%;
     position: fixed;
-  }
-  
+}
+
 body {
     margin: 0;
     position: fixed;
-    background-color: black;
+    background-color: white;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -15,13 +15,15 @@ body {
 }
 
 .upload-btn {
-    color: white;
-    background-color: black;
-    border: 2px solid white;
-    border-radius: 10px;
-    padding: 10px 20px;
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #4285F4;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 4px;
     cursor: pointer;
-    display: flex;
+    transition: background-color 0.3s ease;
 }
 
 input[type="file"] {
@@ -65,5 +67,92 @@ input[type="text"] {
     font-family: Roboto;
     font-size: 18px;
     font-weight: lighter;
-  }
-  
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    /*margin: 0 auto;*/
+    max-width: 600px;
+    height: 50px;
+    border: 2px solid #ccc;
+    border-radius: 25px;
+    overflow: hidden;
+    padding: 0 10px;
+    background-color: #fff;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-top: 150px;
+    margin-bottom: 20px;
+}
+
+.search-container input[type="text"] {
+    flex: 1;
+    border: none;
+    font-size: 18px;
+    height: 100%;
+    padding: 0 15px;
+    background-color: transparent;
+    color: #666;
+    font-weight: bold;
+    outline: none;
+}
+
+.search-container input[type="text"]::placeholder {
+    color: #ccc;
+    font-weight: normal;
+}
+
+.search-container button {
+    border: none;
+    background-color: #4285F4;
+    color: #fff;
+    font-size: 18px;
+    cursor: pointer;
+    padding: 10px 15px;
+    border-radius: 25px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.search-container button:hover {
+    background-color: #2962FF;
+}
+
+@media only screen and (max-width: 600px) {
+    .search-container {
+        max-width: 100%;
+        margin: 0 10px;
+        height: auto;
+        border-radius: 0;
+        box-shadow: none;
+    }
+
+    .search-container input[type="text"] {
+        font-size: 16px;
+        padding: 10px 15px;
+    }
+
+    .search-container button {
+        font-size: 16px;
+        padding: 10px 12px;
+        border-radius: 20px;
+    }
+}
+
+
+
+.file-upload {
+    display: inline-block;
+    padding: 12px 30px;
+    background-color: #4285F4;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.file-upload:hover {
+    background-color: #3367D6;
+}
+
