@@ -36,3 +36,4 @@ python run.py
 pip install -r requirements.txt
 ```
 ## 效果演示
+![](https://github.com/Ulov888/chatpdflike/blob/main/gif.gif)
