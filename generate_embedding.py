@@ -164,8 +164,10 @@ class Chatbot():
     def response(self, df, prompt):
         logger.info('Sending request to GPT-3')
         prompt = self.create_prompt(df, prompt)
-        r = openai.Completion.create(model="text-davinci-003", prompt=prompt, temperature=0.4, max_tokens=1500)
-        answer = r.choices[0]['text']
+        r = openai.ChatCompletion.create(model="gpt-3.5-turbo",
+                                         messages=[{"role": "user", "content": prompt},
+                                                   ])
+        answer = r.choices[0]['message']['content']
         logger.info('Done sending request to GPT-3')
         response = {'answer': answer, 'sources': sources}
         return response
