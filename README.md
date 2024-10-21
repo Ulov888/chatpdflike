@@ -126,6 +126,8 @@ To use Ollama's API (if desired):
    - The application's response will appear below your question.
    - Source references (e.g., page numbers and excerpts) are provided for context.
 
+![Demo GIF](gif.gif)
+
 ## Customization
 
 ### Prompt Strategies
