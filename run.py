@@ -1,24 +1,27 @@
 from flask import Flask, request, render_template
+from flask_cors import CORS
+from generate_embedding import Chatbot, OllamaChatbot
 from io import BytesIO
 from PyPDF2 import PdfReader
-from generate_embedding import Chatbot
 import requests
-from flask_cors import CORS
+
 
 app = Flask(__name__)
 CORS(app)
 
-
 @app.route("/", methods=["GET", "POST"])
 def index():
     return render_template("index.html")
+
 
 @app.route("/process_pdf", methods=['POST'])
 def process_pdf():
     print("Processing pdf")
     file = request.data
     pdf = PdfReader(BytesIO(file))
-    chatbot = Chatbot()
+    chatbot = Chatbot()  # Default to OpenAI
+    if request.args.get('provider') == 'ollama':
+        chatbot = OllamaChatbot()
     paper_text = chatbot.parse_paper(pdf)
     global df
     df = chatbot.paper_df(paper_text)
@@ -26,9 +29,12 @@ def process_pdf():
     print("Done processing pdf")
     return {'answer': ''}
 
+
 @app.route("/download_pdf", methods=['POST'])
 def download_pdf():
-    chatbot = Chatbot()
+    chatbot = Chatbot()  # Default to OpenAI
+    if request.args.get('provider') == 'ollama':
+        chatbot = OllamaChatbot()
     url = request.json['url']
     r = requests.get(str(url))
     print(r.headers)
@@ -40,9 +46,12 @@ def download_pdf():
     print("Done processing pdf")
     return {'key': ''}
 
+
 @app.route("/reply", methods=['POST'])
 def reply():
-    chatbot = Chatbot()
+    chatbot = Chatbot()  # Default to OpenAI
+    if request.args.get('provider') == 'ollama':
+        chatbot = OllamaChatbot()
     query = request.json['query']
     query = str(query)
     prompt = chatbot.create_prompt(df, query)

@@ -1,14 +1,15 @@
-import pandas as pd
-from openai.embeddings_utils import get_embedding, cosine_similarity
+import logging as logger
+import ollama 
 import openai
 import os
-import logging as logger
-from flask_cors import CORS
 import os
+import pandas as pd
+from flask_cors import CORS
+from openai.embeddings_utils import get_embedding, cosine_similarity
+
 openai.api_key = os.getenv('OPENAI_API_KEY')
 
 class Chatbot():
-
     def parse_paper(self, pdf):
         logger.info("Parsing paper")
         number_of_pages = len(pdf.pages)
@@ -172,3 +173,28 @@ class Chatbot():
         response = {'answer': answer, 'sources': sources}
         return response
 
+
+class OllamaChatbot(Chatbot):
+
+    def __init__(self):
+        self.ollama_api_key = os.getenv('OLLAMA_API_KEY')
+        ollama.api_key = self.ollama_api_key
+
+    def get_ollama_embedding(self, text):
+        response = ollama.embed(model='llama3.1', input=text)
+        return response['embedding']
+
+    def calculate_ollama_embeddings(self, df):
+        logger.info('Calculating embeddings using Ollama')
+        embeddings = df.text.apply(lambda x: self.get_ollama_embedding(x))
+        df["embeddings"] = embeddings
+        logger.info('Done calculating embeddings')
+        return df
+
+    def ollama_response(self, df, prompt):
+        logger.info('Sending request to Ollama')
+        response = ollama.chat(model='llama3.1', messages=[{"role": "user", "content": prompt}])
+        answer = response['message']['content']
+        logger.info('Done sending request to Ollama')
+        response = {'answer': answer, 'sources': sources}
+        return response
